@@ -1,112 +1,198 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<style type="text/css">
-		.spaceship_with_beam {
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			transform: translate(-50%, -50%);
-			transform-origin: top;
-		}
-		.spaceship {
-			position: absolute;
-			left: 50%;
-			top: 31%;
-			transform: translate(-50%, -50%);
-			transform-origin: top;
-		}
-		.plant_base {
-			position: absolute;
-			left: 50%;
-			top: 65%;
-			transform: translate(-50%, -50%);
-		}
-		.plant_corn_top {
-			position: absolute;
-			left: 50%;
-			top: 57%;
-			transform: translate(-50%, -50%);
-		}
-		.plant_corn_top._wiggling {
-			animation: 1s wiggle 1s infinite;
-		}
-		.plant_corn_top._harvesting {
-			animation: harvest 1s, spin .5s infinite;
-		}
-		.plant_corn_right {
-			position: absolute;
-		    left: 54.2%;
-			top: 63.1%;
-			transform: translate(-50%, -50%) rotate(45deg);
-		}
-		.plant_corn_top_screen {
-			position: absolute;
-		    left: 50%;
-			top: 60.5%;
-			transform: translate(-50%, -50%);
-			width: 50px;
-			height: 50px;
-			background: #deefdd;
-		}
-		@keyframes wiggle {
-			0% { transform: translate(-50%, -50%) rotate(8deg); }
-			25% { transform: translate(-50%, -50%) rotate(-8deg); }
-			50% { transform: translate(-50%, -50%) rotate(8deg); }
-			60% { transform: translate(-50%, -50%) rotate(-8deg); }
-			70% { transform: translate(-50%, -50%) rotate(8deg); }
-			80% { transform: translate(-50%, -50%) rotate(-8deg); }
-			90% { transform: translate(-50%, -50%) rotate(8deg); }
-			100% { transform: translate(-50%, -50%) rotate(-8deg); }
-		}
-		@keyframes harvest {
-			from { top: 57% }
-			to { top: 38% }
-		}
-		@keyframes spin {
-			from { transform: translate(-50%, -50%) rotate(0deg) }
-			to { transform: translate(-50%, -50%) rotate(360deg) }
-		}
-	</style>
+  <title></title>
+  <style type="text/css">
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #F1F7FC;
+    }
+    .score {
+      position: absolute;
+      left: 50%;
+      top: 8%;
+      transform: translateX(-50%);
+      font-family: sans-serif;
+      font-size: 48px;
+    }
+    .spaceship_with_beam {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transform-origin: top;
+    }
+    .spaceship {
+      position: absolute;
+      left: 50%;
+      top: 34.5%;
+      transform: translate(-50%, -50%);
+      transform-origin: top;
+    }
+    .plants {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      top: 58%;
+      width: 500px;
+      margin: 0 auto;
+    }
+    .plant {
+      position: relative;
+    }
+    .plant_base {
+      /*position: absolute;
+      left: 50%;
+      top: 65%;
+      transform: translate(-50%, -50%);*/
+    }
+    .plant_corn_top {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translate(-50%, -50%);
+    }
+    .plant_corn_top._wiggling {
+      animation: 1s wiggle 1s infinite;
+    }
+    .plant_corn_top._harvesting {
+      animation: harvest 1s, spin .5s infinite;
+    }
+    .plant:first-child .plant_corn_top._harvesting {
+      animation: harvest-left 1s, spin .5s infinite;
+    }
+    .plant:last-child .plant_corn_top._harvesting {
+      animation: harvest-right 1s, spin .5s infinite;
+    }
+    @keyframes wiggle {
+      0% { transform: translate(-50%, -50%) rotate(8deg); }
+      25% { transform: translate(-50%, -50%) rotate(-8deg); }
+      50% { transform: translate(-50%, -50%) rotate(8deg); }
+      60% { transform: translate(-50%, -50%) rotate(-8deg); }
+      70% { transform: translate(-50%, -50%) rotate(8deg); }
+      80% { transform: translate(-50%, -50%) rotate(-8deg); }
+      90% { transform: translate(-50%, -50%) rotate(8deg); }
+      100% { transform: translate(-50%, -50%) rotate(-8deg); }
+    }
+    @keyframes harvest {
+      from { top: 0 }
+      to { top: -100% }
+    }
+    @keyframes harvest-left {
+      from { top: 0; left: 50%; }
+      to { top: -100%; left: 100%; }
+    }
+    @keyframes harvest-right {
+      from { top: 0; left: 50%; }
+      to { top: -100%; left: -50%; }
+    }
+    @keyframes spin {
+      from { transform: translate(-50%, -50%) rotate(0deg) }
+      to { transform: translate(-50%, -50%) rotate(360deg) }
+    }
+  </style>
 </head>
 <body>
-	<img src="spaceship_with_beam.svg" class="spaceship_with_beam">
-	<img src="plant_corn.svg" class="plant_corn_top">
-	<img src="spaceship.svg" class="spaceship">
-	<!-- <div class="plant_corn_top_screen"></div> -->
-	<!-- <img src="plant_corn.svg" class="plant_corn_right"> -->
-	<img src="plant_base.svg" class="plant_base">
+  <div class="score">0</div>
+  <img src="spaceship_with_beam.svg" class="spaceship_with_beam">
+
+  <div class="plants">
+    <div class='plant'>
+      <img src="plant_corn.svg" class="plant_corn_top">
+      <img src="plant_base.svg" class="plant_base">
+    </div>
+
+    <div class='plant'>
+      <img src="plant_corn.svg" class="plant_corn_top">
+      <img src="plant_base.svg" class="plant_base">
+    </div>
+
+    <div class='plant'>
+      <img src="plant_corn.svg" class="plant_corn_top">
+      <img src="plant_base.svg" class="plant_base">
+    </div>
+  </div>
+
+  <img src="spaceship.svg" class="spaceship"> <!-- on top of harvesting corns -->
 <script>
-	const spaceshipWithBeam = document.querySelector('.spaceship_with_beam');
-	const spaceship = document.querySelector('.spaceship');
-	const topCorn = document.querySelector('.plant_corn_top');
-	document.addEventListener('mousemove', rewind);
-	document.addEventListener('touchmove', rewind);
-	startWiggle();
+  const state = {
+    time: +new Date(),
+    score: 0,
+    beamAngle: 0, // +60..0..-60
+    beamedPlantIndex: 0, // 0 | 1 | 2
+    plants: [
+      { growth: 0, harvesting: false, $: document.querySelectorAll('.plant_corn_top')[0] },
+      { growth: 0, harvesting: false, $: document.querySelectorAll('.plant_corn_top')[1] },
+      { growth: 0, harvesting: false, $: document.querySelectorAll('.plant_corn_top')[2] },
+    ],
+  };
+  const TIME_TO_HARVEST = 3400;
 
-	function rewind(e/* MouseEvent */) {
-	  const currentX = e.touches && e.touches[0].clientX || e.clientX;
-	  const normalizedX = currentX / window.innerWidth;
+  const spaceshipWithBeam = document.querySelector('.spaceship_with_beam');
+  const spaceship = document.querySelector('.spaceship');
+  const score = document.querySelector('.score');
+  document.addEventListener('mousemove', rotateBeam);
+  document.addEventListener('touchmove', rotateBeam);
 
+  setInterval(update, 16);
 
-	  const max = 45 * 2;
-	  const x = normalizedX - 0.5;
-	  const a = x * max * -1; // -1 to maintain the right direction of rotation
-	  console.log(a)
-	  spaceshipWithBeam.style.transform = `translate(-50%, -50%) rotate(${a}deg)`;
-	  spaceship.style.transform = `translate(-50%, -50%) rotate(${a}deg)`;
-	}
+  function update() {
+    let plantIndex = -1;
+    if (state.beamAngle < -17.5 && state.beamAngle > -42) {
+      plantIndex = 2;
+    } else if (state.beamAngle < 11.4 && state.beamAngle > -11.4) {
+      plantIndex = 1;
+    } else if (state.beamAngle > 17.5 && state.beamAngle < 42) {
+      plantIndex = 0;
+    }
 
-	function startWiggle() {
-		topCorn.classList.remove('_harvesting');
-		topCorn.classList.add('_wiggling');
-		setTimeout(() => {
-			topCorn.classList.remove('_wiggling');
-			topCorn.classList.add('_harvesting');
-			setTimeout(startWiggle, 1000);
-		}, 4000);
-	}
+    if (state.beamedPlantIndex !== plantIndex) {
+      if (state.beamedPlantIndex > -1) {
+        state.plants[state.beamedPlantIndex].$.classList.remove('_wiggling');
+      }
+      state.beamedPlantIndex = plantIndex;
+    }
+
+    const plant = state.plants[plantIndex];
+    if (!plant || plant.harvesting) {
+      return;
+    }
+
+    plant.$.classList.add('_wiggling');
+
+    const t = +new Date();
+    const d = t - state.time;
+    state.time = t;
+    plant.growth += d;
+    if (plant.growth >= TIME_TO_HARVEST) {
+      harvest(plant);
+    }
+  }
+
+  function rotateBeam(e/* MouseEvent */) {
+    const currentX = e.touches && e.touches[0].clientX || e.clientX;
+    const normalizedX = currentX / window.innerWidth;
+    const max = 45 * 2;
+    const x = normalizedX - 0.5;
+    const a = x * max * -1; // -1 to maintain the right direction of rotation
+    state.beamAngle = a;
+    spaceshipWithBeam.style.transform = `translate(-50%, -50%) rotate(${a}deg)`;
+    spaceship.style.transform = `translate(-50%, -50%) rotate(${a}deg)`;
+  }
+
+  function harvest(plant) {
+    plant.growth = 0;
+    plant.harvesting = true;
+    plant.$.classList.remove('_wiggling');
+    plant.$.classList.add('_harvesting');
+    setTimeout(() => {
+      state.score++;
+      score.innerText = state.score;
+      plant.harvesting = false;
+      plant.$.classList.remove('_harvesting');
+    }, 1000);
+  }
 </script>
 </body>
 </html>
